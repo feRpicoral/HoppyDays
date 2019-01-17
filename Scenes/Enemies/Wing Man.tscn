@@ -20,7 +20,7 @@ animations = [ {
 custom_solver_bias = 0.0
 extents = Vector2( 7.10289, 6.22579 )
 
-[node name="Wing Man" type="KinematicBody2D"]
+[node name="Wing Man" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 4
@@ -50,7 +50,7 @@ _sections_unfolded = [ "Collision" ]
 
 frames = SubResource( 1 )
 animation = "default"
-frame = 5
+frame = 6
 playing = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" index="1"]
