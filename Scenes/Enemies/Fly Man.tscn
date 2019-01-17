@@ -35,7 +35,7 @@ extents = Vector2( 38.6718, 0.56554 )
 custom_solver_bias = 0.0
 extents = Vector2( 10, 500 )
 
-[node name="Fly Man" type="KinematicBody2D"]
+[node name="Fly Man" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 4
@@ -44,7 +44,10 @@ collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "collision" ]
 fly_speed = 1000
+gravity_proportional = false
+gravity = 500
 attack_range = 1000
+only_attack_on_viewport = true
 max_fly_height = 600
 
 [node name="Area2D" type="Area2D" parent="." index="0"]
@@ -70,23 +73,13 @@ polygon = PoolVector2Array( 52.8819, 5.03674, 39.2972, -18.7365, 17.7881, -34.58
 frames = SubResource( 1 )
 animation = "idle"
 
-[node name="RayCast2D" type="RayCast2D" parent="." index="1"]
-
-visible = false
-rotation = -3.14159
-enabled = false
-exclude_parent = true
-cast_to = Vector2( 0, 50 )
-collision_mask = 1
-_sections_unfolded = [ "Transform" ]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
 visible = false
 position = Vector2( -0.631865, 65.4334 )
 shape = SubResource( 2 )
 
-[node name="Trigger" type="Area2D" parent="." index="3"]
+[node name="Trigger" type="Area2D" parent="." index="2"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -103,8 +96,16 @@ position = Vector2( 0, -500 )
 shape = SubResource( 3 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="." index="3"]
+
+rect = Rect2( -10, -10, 20, 20 )
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
 
 [connection signal="body_entered" from="Trigger" to="." method="_on_trigger"]
+
+[connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_screen_entered"]
+
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_screen_exited"]
 
 

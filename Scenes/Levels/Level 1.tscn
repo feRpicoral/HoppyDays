@@ -78,21 +78,22 @@ position = Vector2( 1200.91, 1840.27 )
 [node name="Gold" parent="Coins" index="0" instance=ExtResource( 7 )]
 
 position = Vector2( 997.291, 396.032 )
-frame = 4
+frame = 1
 
 [node name="Gold2" parent="Coins" index="1" instance=ExtResource( 7 )]
 
 position = Vector2( 746.184, 872.786 )
+frame = 0
 
 [node name="Gold3" parent="Coins" index="2" instance=ExtResource( 7 )]
 
 position = Vector2( 822.157, 974.083 )
-frame = 4
+frame = 1
 
 [node name="Gold4" parent="Coins" index="3" instance=ExtResource( 7 )]
 
 position = Vector2( 925.402, 1083.17 )
-frame = 4
+frame = 1
 
 [node name="Carrots" type="Node2D" parent="." index="4"]
 
@@ -139,6 +140,9 @@ initial_direction = "Left"
 [node name="Fly Man" parent="Enemies" index="4" instance=ExtResource( 13 )]
 
 position = Vector2( 569.646, 983.667 )
+gravity_proportional = false
+gravity = 500
+only_attack_on_viewport = false
 
 [node name="Music" parent="." index="7" instance=ExtResource( 14 )]
 
@@ -159,10 +163,11 @@ waitTime = 3
 [node name="Bronze" parent="." index="10" instance=ExtResource( 17 )]
 
 position = Vector2( 2157.1, 442.482 )
-frame = 1
+frame = 4
 
 [node name="Silver" parent="." index="11" instance=ExtResource( 18 )]
 
 position = Vector2( 2609.34, 719.033 )
+frame = 2
 
 

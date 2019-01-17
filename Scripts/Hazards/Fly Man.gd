@@ -7,14 +7,16 @@ extends KinematicBody2D
 
 #Editor variables
 export(int) var fly_speed = 1000
+export(bool) var gravity_proportional = false
+export(int) var gravity = 500
 export(int) var attack_range = 1000
+export(bool) var only_attack_on_viewport = true
 export(int) var max_fly_height = 600
 
 
 #Global variables
 var motion = Vector2()
 const UP = Vector2(0, -1)
-const GRAV = 100 
 
 #Initialize some variables
 var canAttack = false
@@ -24,13 +26,14 @@ var initialY
 var d
 
 func _ready():
+	#Set the gravity
+	if gravity_proportional:
+		gravity = fly_speed/2
+	
 	#Set the inital position
 	initialY = self.global_position.y
 	
-	#Set the attack range
-	var cast_to = Vector2($RayCast2D.cast_to.x, attack_range)
-	$RayCast2D.set_cast_to(cast_to)
-	
+	#Set the trigger size
 	$Trigger/Collision.shape.extents.y = attack_range
 	$Trigger/Collision.position.y = -attack_range
 
@@ -46,10 +49,8 @@ func _process(delta):
 	#Gravity
 	fall(delta)
 
-	#Attack if player triggers the Ray Cast
-	if $RayCast2D.is_colliding():
-		canAttack = true
-	elif canAttack:
+	#Attack the player on trigger
+	if canAttack:
 		attack(delta)
 
 	#Reset variables
@@ -58,7 +59,11 @@ func _process(delta):
 		canAttack = false
 		stopedFlying = false
 		hitBeforeMax = false
-		
+
+#Allows the attack
+func _on_trigger(body):
+	canAttack = true
+	
 #Start flying to hit the player
 func attack(delta):
 	if self.global_position.y <= initialY - max_fly_height:	
@@ -91,7 +96,7 @@ func reset_SF():
 #Gravity effect
 func fall(delta):
 	if not is_on_floor():
-		motion.y += GRAV * delta
+		motion.y += gravity * delta
 	else:
 		motion.y = 0
 	
@@ -101,6 +106,11 @@ func _on_body_entered(body):
 	hitBeforeMax = true
 	stop_flying(d)
 
+#Avoid the attack if its not on viewport
+func _on_screen_exited():
+	if only_attack_on_viewport:
+		$Trigger/Collision.set_disabled(true)
 
-func _on_trigger(body):
-	canAttack = true
+func _on_screen_entered():
+	if only_attack_on_viewport:
+		$Trigger/Collision.set_disabled(false)
