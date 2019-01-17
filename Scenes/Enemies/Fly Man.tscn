@@ -1,0 +1,83 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/Hazards/Fly Man.gd" type="Script" id=1]
+[ext_resource path="res://GFX/Enemies/flyMan_still_stand.png" type="Texture" id=2]
+[ext_resource path="res://GFX/Enemies/flyMan_jump.png" type="Texture" id=3]
+[ext_resource path="res://GFX/Enemies/flyMan_fly.png" type="Texture" id=4]
+[ext_resource path="res://GFX/Enemies/flyMan_still_fly.png" type="Texture" id=5]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "fly",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "go_down",
+"speed": 5.0
+} ]
+
+[node name="Fly Man" type="KinematicBody2D"]
+
+input_pickable = false
+collision_layer = 4
+collision_mask = 2
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "collision" ]
+fly_speed = 100
+
+[node name="Area2D" type="Area2D" parent="." index="0"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 4
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" index="0"]
+
+visible = false
+build_mode = 0
+polygon = PoolVector2Array( 52.8819, 5.03674, 39.2972, -18.7365, 17.7881, -34.5853, 61.561, -50.8115, 60.8063, -63.2641, 53.2593, -68.5471, -61.456, -67.7924, -62.2107, -55.3397, -56.173, -47.4153, -19.5698, -34.5853, -40.7016, -17.9818, -48.626, 6.1688, -49.0033, 26.5459, -47.1166, 46.9229, -48.626, 69.9414, 48.731, 70.3188 )
+
+[node name="Sprite" type="AnimatedSprite" parent="Area2D" index="1"]
+
+frames = SubResource( 1 )
+animation = "idle"
+
+[node name="RayCast2D" type="RayCast2D" parent="." index="1"]
+
+rotation = -3.14159
+enabled = false
+exclude_parent = true
+cast_to = Vector2( 0, 50 )
+collision_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="2"]
+
+visible = false
+build_mode = 0
+polygon = PoolVector2Array( 52.8819, 5.03674, 39.2972, -18.7365, 17.7881, -34.5853, 61.561, -50.8115, 60.8063, -63.2641, 53.2593, -68.5471, -61.456, -67.7924, -62.2107, -55.3397, -56.173, -47.4153, -19.5698, -34.5853, -40.7016, -17.9818, -48.626, 6.1688, -49.0033, 26.5459, -47.1166, 46.9229, -48.626, 69.9414, 48.731, 70.3188 )
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
+
+
