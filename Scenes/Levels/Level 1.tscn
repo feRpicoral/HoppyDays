@@ -15,9 +15,9 @@
 [ext_resource path="res://Scenes/Enemies/Fly Man.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Scenes/Others/Music.tscn" type="PackedScene" id=14]
 [ext_resource path="res://SFX/Level Up/1.ogg" type="AudioStream" id=15]
-[ext_resource path="res://Scenes/Items/GoldCarrot.tscn" type="PackedScene" id=16]
-[ext_resource path="res://Scenes/Items/Coins/Bronze.tscn" type="PackedScene" id=17]
-[ext_resource path="res://Scenes/Items/Coins/Silver.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Scenes/Items/Coins/Bronze.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Scenes/Items/Coins/Silver.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Scenes/Items/Portal.tscn" type="PackedScene" id=18]
 
 [node name="World" type="Node" index="0"]
 
@@ -56,6 +56,8 @@ infiniteTop = true
 
 [node name="Spikes" type="Node2D" parent="." index="2"]
 
+editor/display_folded = true
+
 [node name="Multi Down" parent="Spikes" index="0" instance=ExtResource( 4 )]
 
 position = Vector2( 1826.3, 932.539 )
@@ -75,25 +77,27 @@ position = Vector2( 1200.91, 1840.27 )
 
 [node name="Coins" type="Node2D" parent="." index="3"]
 
+editor/display_folded = true
+
 [node name="Gold" parent="Coins" index="0" instance=ExtResource( 7 )]
 
 position = Vector2( 997.291, 396.032 )
-frame = 1
+frame = 5
 
 [node name="Gold2" parent="Coins" index="1" instance=ExtResource( 7 )]
 
 position = Vector2( 746.184, 872.786 )
-frame = 0
+frame = 4
 
 [node name="Gold3" parent="Coins" index="2" instance=ExtResource( 7 )]
 
 position = Vector2( 822.157, 974.083 )
-frame = 1
+frame = 5
 
 [node name="Gold4" parent="Coins" index="3" instance=ExtResource( 7 )]
 
 position = Vector2( 925.402, 1083.17 )
-frame = 1
+frame = 5
 
 [node name="Carrots" type="Node2D" parent="." index="4"]
 
@@ -140,9 +144,6 @@ initial_direction = "Left"
 [node name="Fly Man" parent="Enemies" index="4" instance=ExtResource( 13 )]
 
 position = Vector2( 569.646, 983.667 )
-gravity_proportional = false
-gravity = 500
-only_attack_on_viewport = false
 
 [node name="Music" parent="." index="7" instance=ExtResource( 14 )]
 
@@ -155,19 +156,18 @@ autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="Golden Carrot" parent="." index="9" instance=ExtResource( 16 )]
-
-position = Vector2( 3129.83, 746.053 )
-waitTime = 3
-
-[node name="Bronze" parent="." index="10" instance=ExtResource( 17 )]
+[node name="Bronze" parent="." index="9" instance=ExtResource( 16 )]
 
 position = Vector2( 2157.1, 442.482 )
-frame = 4
+frame = 2
 
-[node name="Silver" parent="." index="11" instance=ExtResource( 18 )]
+[node name="Silver" parent="." index="10" instance=ExtResource( 17 )]
 
 position = Vector2( 2609.34, 719.033 )
-frame = 2
+frame = 0
+
+[node name="Portal" parent="." index="11" instance=ExtResource( 18 )]
+
+position = Vector2( 2560.47, 1461.99 )
 
 

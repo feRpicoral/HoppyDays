@@ -35,7 +35,7 @@ extents = Vector2( 38.6718, 0.56554 )
 custom_solver_bias = 0.0
 extents = Vector2( 10, 500 )
 
-[node name="Fly Man" type="KinematicBody2D" index="0"]
+[node name="Fly Man" type="KinematicBody2D"]
 
 input_pickable = false
 collision_layer = 4
