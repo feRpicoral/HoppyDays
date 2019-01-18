@@ -4,11 +4,57 @@ extends Area2D
 # Area2D -> AnimatedSprite -> Node2D (Carrots) -> World -> Player
 onready var player = get_parent().get_node("Player")
 onready var global = player.get_node("Global")
-export var waitTime = 1.5
 
+#Editor variables
+export(int) var coins_to_unlock = 0
+export(float) var waitTime = 1.5
+
+#Global variables
+var showing = false
+
+#Needed. If set in scene, it will bug.
+func _ready():
+	hide_text()
 
 func _on_body_entered(body):	
+	var coins =  global.get("actualCoins")
+	if coins >= coins_to_unlock:
+		finish_level()
+	else:
+		if not showing:
+			show_text()
+
+#Show text saying that X coins are needed
+func show_text():
+	showing = true
+	var stdText = $TextStandart
+	var coinText = $TextAmount
 	
+	#Update the text
+	var neededCoins = coins_to_unlock
+	var text = "You need %s coins to finish this level!" % str(neededCoins)
+	coinText.text = text
+	
+	#Show the text
+	stdText.set_visible_characters(-1)
+	coinText.set_visible_characters(-1)
+	
+	#Timer to hide the text again
+	var timer = Timer.new()
+	timer.set_one_shot(true)
+	timer.set_wait_time(5)
+	timer.connect("timeout", self, "hide_text")
+	add_child(timer)
+	timer.start()
+
+#Hide the text
+func hide_text():
+	$TextStandart.set_visible_characters(0)
+	$TextAmount.set_visible_characters(0)
+	showing = false
+	
+#Ends the level
+func finish_level():
 	#Turn imortal
 	global.lifeCount = 100
 	global.stopGUI = true

@@ -315,6 +315,11 @@ _sections_unfolded = [ "custom_fonts" ]
 
 [node name="Static Player" type="Node2D" parent="." index="7"]
 
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
 [node name="Static Player" parent="Static Player" index="0" instance=ExtResource( 7 )]
 
 position = Vector2( 302.184, 739.935 )
