@@ -19,7 +19,7 @@
 [ext_resource path="res://Scenes/Items/Coins/Silver.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Scenes/Items/Portal.tscn" type="PackedScene" id=18]
 
-[node name="World" type="Node"]
+[node name="World" type="Node" index="0"]
 
 script = ExtResource( 1 )
 
@@ -82,19 +82,22 @@ editor/display_folded = true
 [node name="Gold" parent="Coins" index="0" instance=ExtResource( 7 )]
 
 position = Vector2( 997.291, 396.032 )
+frame = 2
 
 [node name="Gold2" parent="Coins" index="1" instance=ExtResource( 7 )]
 
 position = Vector2( 746.184, 872.786 )
-frame = 2
+frame = 1
 
 [node name="Gold3" parent="Coins" index="2" instance=ExtResource( 7 )]
 
 position = Vector2( 822.157, 974.083 )
+frame = 2
 
 [node name="Gold4" parent="Coins" index="3" instance=ExtResource( 7 )]
 
 position = Vector2( 925.402, 1083.17 )
+frame = 2
 
 [node name="Carrots" type="Node2D" parent="." index="4"]
 
@@ -140,7 +143,7 @@ initial_direction = "Left"
 
 [node name="Fly Man" parent="Enemies" index="4" instance=ExtResource( 13 )]
 
-position = Vector2( 569.646, 983.667 )
+position = Vector2( 572.426, 1086.52 )
 
 [node name="Music" parent="." index="7" instance=ExtResource( 14 )]
 
@@ -156,11 +159,12 @@ bus = "Master"
 [node name="Bronze" parent="." index="9" instance=ExtResource( 16 )]
 
 position = Vector2( 2157.1, 442.482 )
+frame = 5
 
 [node name="Silver" parent="." index="10" instance=ExtResource( 17 )]
 
 position = Vector2( 2609.34, 719.033 )
-frame = 4
+frame = 3
 
 [node name="Portal" parent="." index="11" instance=ExtResource( 18 )]
 
