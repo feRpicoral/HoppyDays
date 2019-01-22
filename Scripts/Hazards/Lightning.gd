@@ -15,17 +15,15 @@ func _process(delta):
 func _on_screen_exited():
 	queue_free()
 
-#Moves the lightning
 func _physics_process(delta):
 	move_and_slide(motion)
 
-#Handles hit
 func _on_hit(body):
 	if body.get_collision_layer() == 1:
 		#Hit the player
 		body.take_damage()
 		queue_free()
 	if body.get_collision_layer() == 2:
-		#Hit the terraint
+		#Hit the terrain
 		queue_free()
 

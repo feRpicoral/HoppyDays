@@ -3,20 +3,23 @@ extends KinematicBody2D
 #Global variables/consts
 var motion = Vector2()
 const UP = Vector2(0, -1)
-var currentSpeed
-var onEdge = false
+var current_speed
+var on_edge = false
 
 #Editor variables
-export var speed = 100
-export var random_direction = true
+export(int) var speed = 100
+export(bool) var random_direction = true
+export(float) var wait_time = 2
 export(String, "Right", "Left") var initial_direction 
 
 #Changes the direction based on the editor settings
 func _ready():	
+	$Timer.wait_time = wait_time
+
 	if random_direction:
 		randomize()
-		var randomNumber = randi() % 2
-		if randomNumber == 1:
+		var random_number = randi() % 2
+		if random_number == 1:
 			pass
 		else:
 			speed = speed * -1
@@ -27,18 +30,16 @@ func _ready():
 			speed = speed * -1
 	
 func _process(delta):
-	if not onEdge: updateAnimation(motion)
+	if not on_edge: updateAnimation(motion)
 
 func _physics_process(delta):
-	walk()
-	move_and_slide(motion, UP)
-	
-func walk():
 	motion.x = speed	
+	move_and_slide(motion, UP)
+
 
 #Updates the animation based on the motion
 func updateAnimation(motion):
-	var sprite = $"Spike Man/Sprite"
+	var sprite = $Area2D/Sprite
 	if motion.x > 0:
 		sprite.play("walk")
 		sprite.flip_h = false
@@ -51,26 +52,21 @@ func _on_Spike_Man_body_entered(body):
 	body.take_damage()
 
 func move_again():
-	speed = currentSpeed
-	onEdge = false
+	speed = current_speed
+	on_edge = false
 
 #About to fall
 func _on_sensor_body_exited(body):
 	#Avoid walking animation
-	onEdge = true
+	on_edge = true
 	#Change direction
 	speed = speed * -1
 	#Save the speed before stoping
-	currentSpeed = speed
+	current_speed = speed
 	
-	#Sits for a litte
-	var timer = Timer.new()
-	timer.set_one_shot(true)
-	timer.set_wait_time(1)
-	timer.connect("timeout", self, "move_again")
-	add_child(timer)
+	#Waits before moving again
 	speed = 0
-	$"Spike Man/Sprite".play("idle")
-	timer.start()	
+	$Area2D/Sprite.play("idle")
+	$Timer.start()	
 	
 	

@@ -19,7 +19,7 @@
 [ext_resource path="res://Scenes/Items/Coins/Silver.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Scenes/Items/Portal.tscn" type="PackedScene" id=18]
 
-[node name="World" type="Node" index="0"]
+[node name="World" type="Node"]
 
 script = ExtResource( 1 )
 bottom_limit = 3000.0
@@ -136,7 +136,7 @@ initial_direction = "Right"
 
 [node name="Wing Man" parent="Enemies" index="3" instance=ExtResource( 12 )]
 
-position = Vector2( 1318.27, 1595.09 )
+position = Vector2( 1320.43, 1579.98 )
 _sections_unfolded = [ "Collision", "Transform" ]
 random_direction = false
 initial_direction = "Left"

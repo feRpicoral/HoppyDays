@@ -13,7 +13,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Lightning" type="KinematicBody2D" index="0"]
+[node name="Lightning" type="KinematicBody2D"]
 
 input_pickable = false
 collision_layer = 4
@@ -42,7 +42,6 @@ polygon = PoolVector2Array( -5.52633, -51.7238, 3.60828, -56.8724, 9.42121, -57.
 
 frames = SubResource( 1 )
 animation = "default"
-frame = 1
 playing = true
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="." index="2"]

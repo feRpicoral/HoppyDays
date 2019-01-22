@@ -6,6 +6,7 @@ var levels_folder = "res://Scenes/Levels/"
 var UI_levels = "res://Scenes/UI/Levels.tscn"
 var UI_options = "res://Scenes/UI/Options.tscn"
 var data_json = "res://Data/player-data.JSON"
+var lightning = "res://Scenes/Enemies/Lighting.tscn"
 
 #Nodes
 var player

@@ -35,7 +35,7 @@ extents = Vector2( 38.6718, 0.56554 )
 custom_solver_bias = 0.0
 extents = Vector2( 10, 500 )
 
-[node name="Fly Man" type="KinematicBody2D"]
+[node name="FlyMan" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 4
@@ -81,6 +81,7 @@ shape = SubResource( 2 )
 
 [node name="Trigger" type="Area2D" parent="." index="2"]
 
+editor/display_folded = true
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -100,6 +101,13 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 rect = Rect2( -10, -10, 20, 20 )
 
+[node name="StoppedFlyingTimer" type="Timer" parent="." index="4"]
+
+process_mode = 1
+wait_time = 0.1
+one_shot = true
+autostart = false
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
 
 [connection signal="body_entered" from="Trigger" to="." method="_on_trigger"]
@@ -107,5 +115,7 @@ rect = Rect2( -10, -10, 20, 20 )
 [connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_screen_entered"]
 
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_screen_exited"]
+
+[connection signal="timeout" from="StoppedFlyingTimer" to="." method="reset_stopped_flying"]
 
 

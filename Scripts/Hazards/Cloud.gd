@@ -1,39 +1,35 @@
 extends KinematicBody2D
 
 #Editor variables
-export(float) var rayCastLenght = 3000.0
-export(float) var reloadTime = 5.0
+export(float) var attack_range = 3000.0
+export(float) var reload_time = 5.0
 export(String, "800", "400", "200") var animation
-export(bool) var usePhysics = false
+export(bool) var use_physics = false
 export(int) var speed = 160
 export var random_direction = true
 export(String, "Right", "Left") var initial_direction 
 
 #Global variables
 var motion = Vector2()
-var currentSpeed
+var current_speed
 var can_attack = true
 
 #Moves the cloud
 func _physics_process(delta):
 	motion.x = speed
-	if usePhysics: move_and_slide(motion)
+	if use_physics: move_and_slide(motion)
 
 func _ready():
-	if usePhysics:
+	if use_physics:
 		$Sprite/AnimationPlayer.stop()
 	else:
 		$Sprite/AnimationPlayer.play(animation)
 	
-	#Set a random start direction
 	set_random_direction()
 	
-	#Set the cast Y
-	var cast_to = Vector2($Sprite/RayCast2D.cast_to.x, rayCastLenght)
-	$Sprite/RayCast2D.set_cast_to(cast_to)
+	$Sprite/RayCast2D.cast_to.y = attack_range
 	
-	#Set the coold down time
-	$Sprite/Timer.set_wait_time(reloadTime)
+	$Sprite/Timer.wait_time = reload_time
 
 #If player is underneath the cloud, attack
 func _process(delta):
@@ -42,9 +38,8 @@ func _process(delta):
 
 func attack():
 	#Spawn the lightning
-	var lightning = load("res://Scenes/Enemies/Lighting.tscn")
-	var child = lightning.instance()
-	$Sprite.add_child(child)
+	var lightning = load(Global.lightning)
+	$Sprite.add_child(lightning.instance())
 	
 	#Start the cool down time
 	$Sprite/Timer.start()
@@ -57,8 +52,8 @@ func _on_Timer_timeout():
 func set_random_direction():
 	if random_direction:
 		randomize()
-		var randomNumber = randi() % 2
-		if randomNumber == 1:
+		var random_number = randi() % 2
+		if random_number == 1:
 			pass
 		else:
 			speed = speed * -1
@@ -69,8 +64,7 @@ func set_random_direction():
 			speed = speed * -1
 
 func _on_sensor_trigger(body):
-	if usePhysics:
-		print("sensor")
+	if use_physics:
 		if body.get_collision_layer() != 1:
 			speed = speed * -1
 
@@ -81,3 +75,7 @@ func _on_CloudArea_body_entered(body):
 
 func _on_timer_timeout():
 	can_attack = true
+
+func _on_CloudArea_body_exited(body):
+	can_attack = true
+	
