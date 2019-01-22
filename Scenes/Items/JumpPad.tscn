@@ -20,7 +20,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="JumpPad" type="Area2D"]
+[node name="JumpPad" type="Area2D" index="0"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )

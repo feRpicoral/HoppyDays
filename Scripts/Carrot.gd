@@ -1,18 +1,4 @@
-extends Sprite
-onready var posY = self.position.y
-
-func _ready():
-	$AnimationPlayer.get_animation("default").loop = true
-	$AnimationPlayer.play("default")
-
-#Updates the Y position based on the current position
-func update(y):
-	self.position.y += y
-
-#Set postion to original pos
-func reset():
-	self.position.y = posY
-
+extends Node2D
 
 func _on_body_entered(body):
 	#Play collected animation and remove carrot

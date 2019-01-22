@@ -1,12 +1,20 @@
-extends Node
+extends Node2D
 
-#Initialize some variables
-onready var lastScene
-onready var lifeCount
-onready var actualCoins = 0
-onready var saveCoins = false
-onready var stopGUI = false
-onready var canResetMotionY = true
+#Paths
+var main_menu = "res://Scenes/UI/MainMenu.tscn"
+var levels_folder = "res://Scenes/Levels/"
+var UI_levels = "res://Scenes/UI/Levels.tscn"
+var UI_options = "res://Scenes/UI/Options.tscn"
+var data_json = "res://Data/player-data.JSON"
+
+#Nodes
+var player
+var last_level_played
+var bottom_limit
+
+#Settings
+var save_coins = false
+var stop_gui = false
 
 #Data to be saved. May be edited from other scripts
 var data = {
@@ -35,23 +43,18 @@ func update_data(key, subKey, value, sender=null):
 		print("SAVE [%s]: Game saved with success!" % sender)
 
 func _ready():
-	#OS.window_resizable = false
 	_load_game_data()
-
-#Set the current scene as last scene. Must be called on ready of all levels
-func last_scene():
-	lastScene = get_tree().get_current_scene().filename
 
 #Loads the JSON 
 func _load_game_data():
 	var file = File.new()
-	file.open("res://Data/player-data.JSON", file.READ)
+	file.open(data_json, file.READ)
 	data = parse_json(file.get_as_text())
 	file.close()
 
 #Saves the game data from and dic
 func save_game(data):
 	var file = File.new()
-	file.open("res://Data/player-data.JSON", file.WRITE)
+	file.open(data_json, file.WRITE)
 	file.store_line(to_json(data))
 	file.close()

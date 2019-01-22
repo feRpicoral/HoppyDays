@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=2]
 
-[ext_resource path="res://Scripts/Level 1.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Maps.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Tiles/PlatformTiles.tres" type="TileSet" id=2]
 [ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Others/Spikes/Spikes Down.tscn" type="PackedScene" id=4]
@@ -22,6 +22,10 @@
 [node name="World" type="Node" index="0"]
 
 script = ExtResource( 1 )
+bottom_limit = 3000.0
+left_limit = 0.0
+top_limit = -1500.0
+infinite_top = true
 
 [node name="Ground Tiles" type="TileMap" parent="." index="0"]
 
@@ -52,7 +56,6 @@ __meta__ = {
 
 position = Vector2( 1163.58, 1198.98 )
 _sections_unfolded = [ "Collision", "Material", "Pickable", "Transform", "Visibility", "Z Index", "collision" ]
-infiniteTop = true
 
 [node name="Spikes" type="Node2D" parent="." index="2"]
 
@@ -82,26 +85,23 @@ editor/display_folded = true
 [node name="Gold" parent="Coins" index="0" instance=ExtResource( 7 )]
 
 position = Vector2( 997.291, 396.032 )
-frame = 2
 
 [node name="Gold2" parent="Coins" index="1" instance=ExtResource( 7 )]
 
 position = Vector2( 746.184, 872.786 )
-frame = 1
+frame = 2
 
 [node name="Gold3" parent="Coins" index="2" instance=ExtResource( 7 )]
 
 position = Vector2( 822.157, 974.083 )
-frame = 2
 
 [node name="Gold4" parent="Coins" index="3" instance=ExtResource( 7 )]
 
 position = Vector2( 925.402, 1083.17 )
-frame = 2
 
 [node name="Carrots" type="Node2D" parent="." index="4"]
 
-editor/display_folded = true
+_sections_unfolded = [ "Transform" ]
 
 [node name="Carrot" parent="Carrots" index="0" instance=ExtResource( 8 )]
 
@@ -159,15 +159,15 @@ bus = "Master"
 [node name="Bronze" parent="." index="9" instance=ExtResource( 16 )]
 
 position = Vector2( 2157.1, 442.482 )
-frame = 5
 
 [node name="Silver" parent="." index="10" instance=ExtResource( 17 )]
 
 position = Vector2( 2609.34, 719.033 )
-frame = 3
+frame = 4
 
 [node name="Portal" parent="." index="11" instance=ExtResource( 18 )]
 
 position = Vector2( 2560.47, 1461.99 )
+coins_to_unlock = 30
 
 

@@ -268,6 +268,13 @@ bus = "Master"
 
 [node name="ButtonClickSound" parent="." index="6" instance=ExtResource( 7 )]
 
+[node name="Timer" type="Timer" parent="." index="7"]
+
+process_mode = 1
+wait_time = 0.1
+one_shot = true
+autostart = false
+
 [connection signal="pressed" from="TryAgain" to="." method="_on_TryAgain_pressed"]
 
 [connection signal="pressed" from="Menu" to="." method="_on_Menu_pressed"]

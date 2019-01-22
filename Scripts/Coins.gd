@@ -1,7 +1,6 @@
 extends AnimatedSprite
 
-#Avoids bug of collecting the same coin twice
-onready var collected = false
+var collected = false
 
 func _on_Gold_Area_body_entered(body):
 	if not collected: 

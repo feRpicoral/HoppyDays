@@ -1,76 +1,60 @@
 extends KinematicBody2D
 
-#TODO
-#Separate in multiple scripts
-#Player.gd is doing too much for a single script
-
-#Player Variables / Consts
-var motion = Vector2()
+#Consts
 const JUMP_HEIGHT = -1500
 const SPEED = 800
 const GRAVITY = 2000
+const UP = Vector2(0,-1)
 const JUMP_BOOST = 1.5
 
 #Editor Variables
-export(float) var bottom_limit = 3000.0
-export(float) var left_limit = 0.0
-export(float) var top_limit = -1500.0
-export(bool) var infiniteTop = true
-export(int) var lifeCount = 3
-export(bool) var infiniteLifes = false
+export(int) var lives = 3
+export(bool) var infinite_lives = false
 
 #Set the spawn point
 onready var spawnPoint = self.position
 
+#Variables
+var motion = Vector2()
+var can_reset_motion_y = true
+var coins = 0
+
 func _ready():
-	if infiniteLifes: lifeCount = 0
-	#Set the life count globaly
-	$Global.lifeCount = lifeCount
-	lifeCount = $Global.get("lifeCount")
-	$Camera2D/GUI/Banner/Lifes/LifeCount.text = String(lifeCount)	
+	Global.player = self
+	if infinite_lives: lives = 0
+	
+	$Camera2D/GUI/Banner/Lifes/LifeCount.text = String(lives)	
 	
 	#If saving coins, get them
-	if $Global.saveCoins:
-		var actualCoins = $Global.get("actualCoins")
-		var savedCoins = $Global.data["player"]["coins"]
-		$Global.actualCoins = savedCoins
-		$Camera2D/GUI/Banner/Coins/CoinCount.text = str($Global.actualCoins)
+	if Global.save_coins:
+		coins = Global.data["player"]["coins"]
+		$Camera2D/GUI/Banner/Coins/CoinCount.text = str(coins)
 	
 	#Loads the saved model
 	var skin = Global.data["player"]["model"]
 	$Sprite.load_skin(skin)
-	
-	
 
 #Move the player based on the inputs
 func _physics_process(delta):
-	update_motion(delta)
-
-#Change the state of the player
-func update_motion(delta):
 	fall(delta)
 	run()
 	jump()	
-	move_and_slide(motion, Vector2(0, -1))
+	move_and_slide(motion, UP)
+	
 
 #Makes sure the right animation is playing
 func _process(delta):
-	update_animation(motion)
-
-#Changes the animation based on the motion
-func update_animation(motion):
-	$Sprite.update(motion)
-
+	$Sprite.update_animation(motion)
 
 func fall(delta):
 	if  is_on_floor() or is_on_ceiling():
 		#Avoid bug with jump pads and damage
-		if $Global.canResetMotionY: motion.y = 0
+		if can_reset_motion_y: motion.y = 0
 	else:
 		motion.y += GRAVITY * delta
 	
 	#If the player falls from the map, give damage and respawn or restart
-	if position.y >= bottom_limit:
+	if position.y >= Global.bottom_limit:
 		take_damage("fall")
 		respawn()
 	
@@ -100,11 +84,12 @@ func end_game():
 
 #Needed to avoid bug
 func allow_reset_motion_y():
-	$Global.canResetMotionY = true
+	can_reset_motion_y = true
 
 func block_reset_motion_y():
+	can_reset_motion_y = false
+	
 	#Timer to avoid bug
-	$Global.canResetMotionY = false
 	var timer = Timer.new()
 	timer.connect("timeout", self, "allow_reset_motion_y")
 	add_child(timer)
@@ -112,13 +97,11 @@ func block_reset_motion_y():
 	timer.set_wait_time(0.1)
 	timer.start()
 	
-#Remove one life. If the player has no lifes left, end the game
-func take_damage(deathKind=null):
+func take_damage(death_reason=null):
 	block_reset_motion_y()	
 	
-	if not infiniteLifes:
-		var globalLifes = $Global.get("lifeCount")
-		if globalLifes == 1:
+	if not infinite_lives:
+		if lives == 1:
 			end_game()
 		else:
 			#Play hurt sound 
@@ -127,14 +110,12 @@ func take_damage(deathKind=null):
 			#Play GUI Animation
 			$Camera2D/GUI/AnimationPlayer.play("Hurt")
 			
-			if not $Global.stopGUI:
-				#Update the life count
-				globalLifes -= 1
-				$Global.lifeCount = globalLifes
-				$Camera2D/GUI/Banner/Lifes/LifeCount.text = String($Global.lifeCount)
+			if not Global.stop_gui:
+				lives -= 1
+				$Camera2D/GUI/Banner/Lifes/LifeCount.text = str(lives)
 		
 	#Jump when take damage
-	if deathKind != "fall":
+	if death_reason != "fall":
 		motion.y = JUMP_HEIGHT
 		$Sprite.playAnimation("hurt", false)
 
@@ -147,26 +128,20 @@ func collect_coin(num):
 	#Play Animation
 	$Camera2D/GUI/AnimationPlayer.play("CoinPulse")
 	
-	if not $Global.stopGUI:
-		#Get the coins and add them to the global variable
-		var actualCoins =  $Global.get("actualCoins")
-		var newValue = actualCoins + num
-		$Global.actualCoins = newValue
+	if not Global.stop_gui:
+		coins += num
 		
 		#Show coins in GUI
-		$Camera2D/GUI/Banner/Coins/CoinCount.text = str(newValue)
+		$Camera2D/GUI/Banner/Coins/CoinCount.text = str(coins)
 		
 #Add one life
 func life_up():
-	if not infiniteLifes and not $Global.stopGUI:
-		#Edit the number of lifes
-		var globalLifes = $Global.get("lifeCount")
-		globalLifes += 1
-		$Global.lifeCount = globalLifes
+	if not infinite_lives and not Global.stop_gui:
+		lives += 1
 		$LifeUpSound.play()
 		
 		#Play Animation
 		$Camera2D/GUI/AnimationPlayer.play("LifePulse")
 		
 		#Show lifes o GUI
-		$Camera2D/GUI/Banner/Lifes/LifeCount.text = String($Global.lifeCount)
+		$Camera2D/GUI/Banner/Lifes/LifeCount.text = str(lives)

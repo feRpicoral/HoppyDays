@@ -1,13 +1,7 @@
 extends Control
 
-#Set the timer
-var timer = Timer.new()
 
-func _ready():
-	#Configure the timer
-	timer.set_one_shot(true)
-	timer.set_wait_time(0.1)
-	add_child(timer)
+onready var timer = $Timer
 
 #Quit
 func close():
@@ -19,7 +13,7 @@ func _on_Quit_pressed():
 
 #Main Menu
 func mainMenu():
-	get_tree().change_scene("res://Scenes/UI/MainMenu.tscn")
+	get_tree().change_scene(Global.main_menu)
 func _on_Menu_pressed():
 	timer.connect("timeout",self,"mainMenu")
 	play_btn_sound()
@@ -27,8 +21,7 @@ func _on_Menu_pressed():
 
 #Try Again
 func tryAgain():
-	var lastScene = Global.get("lastScene")
-	get_tree().change_scene(lastScene)
+	get_tree().change_scene(Global.last_level_played)
 func _on_TryAgain_pressed():
 	timer.connect("timeout",self,"tryAgain")
 	play_btn_sound()

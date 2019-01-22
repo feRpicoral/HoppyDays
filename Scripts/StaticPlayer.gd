@@ -1,15 +1,10 @@
 extends KinematicBody2D
 
-#TODO
-#Separate in multiple scripts
-#Player.gd is doing too much for a single script
-
 #Player Variables / Consts
 var motion = Vector2()
 const JUMP_HEIGHT = -1000
-const SPEED = 800
 const GRAVITY = 1500
-const JUMP_BOOST = 1.5
+const UP = Vector2(0, -1)
 
 func _ready():
 	var skin = Global.data["player"]["model"]
@@ -17,22 +12,13 @@ func _ready():
 
 #Move the player
 func _physics_process(delta):
-	update_motion(delta)
-
-#Change the state of the player
-func update_motion(delta):
 	fall(delta)
 	jump()	
-	move_and_slide(motion, Vector2(0, -1))
+	move_and_slide(motion, UP)	
 
 #Makes sure the right animation is playing
 func _process(delta):
-	update_animation(motion)
-
-#Changes the animation based on the motion
-func update_animation(motion):
-	$Sprite.update(motion)
-
+	$Sprite.update_animation(motion)
 
 func fall(delta):
 	if  is_on_floor():
@@ -40,7 +26,7 @@ func fall(delta):
 	else:
 		motion.y += GRAVITY * delta
 	
-	motion.y = clamp(motion.y, (JUMP_HEIGHT * JUMP_BOOST), -JUMP_HEIGHT)
+	motion.y = clamp(motion.y, JUMP_HEIGHT, -JUMP_HEIGHT)
 
 
 func jump():

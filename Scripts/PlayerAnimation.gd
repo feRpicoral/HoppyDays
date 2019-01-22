@@ -1,6 +1,6 @@
 extends AnimatedSprite
 
-func update(motion):	
+func update_animation(motion):	
 	if get_parent().is_on_floor() and not get_parent().is_on_ceiling():
 		if motion.x > 0:
 			playAnimation("run", false)
