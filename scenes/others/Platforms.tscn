@@ -21,6 +21,7 @@
 
 [node name="Cake" type="Sprite" parent="." index="0"]
 
+editor/display_folded = true
 position = Vector2( 212.169, 83.1487 )
 texture = ExtResource( 1 )
 __meta__ = {
@@ -46,7 +47,6 @@ polygon = PoolVector2Array( -183.601, -43.7265, -187.894, -38.6238, -189.662, -3
 
 [node name="Cake Small" type="Sprite" parent="." index="1"]
 
-editor/display_folded = true
 position = Vector2( 572.959, 86.6907 )
 texture = ExtResource( 2 )
 __meta__ = {
@@ -124,6 +124,7 @@ polygon = PoolVector2Array( -85.5721, -49.5966, 85.4013, -49.897, 90.7159, -48.4
 
 [node name="Grass" type="Sprite" parent="." index="4"]
 
+editor/display_folded = true
 position = Vector2( 224.705, 345.939 )
 texture = ExtResource( 5 )
 __meta__ = {
@@ -149,8 +150,7 @@ polygon = PoolVector2Array( -183.601, -43.7265, -187.894, -38.6238, -189.662, -3
 
 [node name="Grass Small" type="Sprite" parent="." index="5"]
 
-editor/display_folded = true
-position = Vector2( 588.877, 351.514 )
+position = Vector2( 588.308, 350.376 )
 texture = ExtResource( 6 )
 __meta__ = {
 "_edit_group_": true
@@ -165,12 +165,13 @@ constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
+_sections_unfolded = [ "Collision" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Grass Small/StaticBody2D" index="0"]
 
 visible = false
 build_mode = 0
-polygon = PoolVector2Array( -85.5721, -49.5966, 85.4013, -49.897, 90.7159, -48.4022, 95.0341, -44.7484, 99.0201, -39.5998, 100.349, -36.4442, 100.349, -18.175, 77.285, 45.3666, 74.9482, 47.889, 71.0414, 50.0866, -50.3126, 42.3951, -50.3126, 42.3951, -76.5612, 40.3197, -80.2238, 36.2908, -99.5135, -17.5494, -99.0373, -37.859, -96.3325, -43.1366, -91.0548, -47.8206 )
+polygon = PoolVector2Array( -86.1953, -49.9123, 85.9973, -49.9879, 95.9347, -43.9151, 99.7992, -35.634, 100.167, -17.5995, 75.228, 50.4113, -78.4228, 41.0548, -100.194, -17.6929, -99.7632, -38.0211, -95.0364, -45.2425 )
 
 [node name="Grass Broken" type="Sprite" parent="." index="6"]
 
@@ -225,6 +226,7 @@ polygon = PoolVector2Array( -85.5721, -49.5966, 85.4013, -49.897, 90.7159, -48.4
 
 [node name="Sand" type="Sprite" parent="." index="8"]
 
+editor/display_folded = true
 position = Vector2( 249.284, 688.636 )
 texture = ExtResource( 9 )
 __meta__ = {
