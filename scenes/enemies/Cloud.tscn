@@ -1,0 +1,195 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scripts/Hazards/Cloud.gd" type="Script" id=1]
+[ext_resource path="res://images/enemies/cloud.png" type="Texture" id=2]
+
+[sub_resource type="Animation" id=1]
+
+resource_name = "200"
+length = 8.0
+loop = true
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 3, 5, 7, 8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -200, 0 ), Vector2( -200, 0 ), Vector2( 200, 0 ), Vector2( 200, 0 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+
+resource_name = "400"
+length = 12.0
+loop = true
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2, 4, 8, 10, 12 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -400, 0 ), Vector2( -400, 0 ), Vector2( 400, 0 ), Vector2( 400, 0 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+
+length = 20.0
+loop = true
+step = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 4, 6, 14, 16, 20 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -800, 0 ), Vector2( -800, 0 ), Vector2( 800, 0 ), Vector2( 800, 0 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=4]
+
+custom_solver_bias = 0.0
+extents = Vector2( 9.04509, 4.12106 )
+
+[node name="Cloud" type="KinematicBody2D"]
+
+input_pickable = false
+collision_layer = 4
+collision_mask = 0
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "collision" ]
+attack_range = 3000.0
+reload_time = 5.0
+animation = null
+use_physics = false
+speed = 160
+random_direction = true
+initial_direction = null
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite" index="0"]
+
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/200 = SubResource( 1 )
+anims/400 = SubResource( 2 )
+anims/800 = SubResource( 3 )
+blend_times = [  ]
+_sections_unfolded = [ "Playback Options" ]
+
+[node name="RayCast2D" type="RayCast2D" parent="Sprite" index="1"]
+
+visible = false
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 50 )
+collision_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="Timer" type="Timer" parent="Sprite" index="2"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+[node name="Sensor Right" type="Area2D" parent="Sprite" index="3"]
+
+editor/display_folded = true
+visible = false
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 4
+collision_mask = 14
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/Sensor Right" index="0"]
+
+position = Vector2( 143.965, 39.6668 )
+shape = SubResource( 4 )
+
+[node name="Sensor Left" type="Area2D" parent="Sprite" index="4"]
+
+editor/display_folded = true
+visible = false
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 4
+collision_mask = 14
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/Sensor Left" index="0"]
+
+position = Vector2( -143.965, 39.6668 )
+shape = SubResource( 4 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="CloudArea" type="Area2D" parent="Sprite" index="5"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 4
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sprite/CloudArea" index="0"]
+
+visible = false
+build_mode = 0
+polygon = PoolVector2Array( 32.5764, -40.2725, 51.7163, -38.8856, 73.6301, -28.8995, 85.2805, -15.3074, 92.77, 3.83249, 113.297, 9.38029, 126.057, 22.9724, 130.218, 41.2801, 126.057, 47.6601, 19.2616, 67.3548, -53.6919, 65.1357, -128.032, 46.8279, -130.806, 24.9141, -113.053, -5.04399, -90.8622, -14.1979, -82.8179, -31.1187, -68.3936, -40.5499, -55.6337, -40.2725, -38.7129, -60.2446, -18.7408, -67.1794, 9.27559, -63.8507, 26.7512, -50.2586 )
+
+[node name="Timer" type="Timer" parent="Sprite/CloudArea" index="1"]
+
+process_mode = 1
+wait_time = 1.5
+one_shot = true
+autostart = false
+
+[connection signal="timeout" from="Sprite/Timer" to="." method="_on_Timer_timeout"]
+
+[connection signal="body_entered" from="Sprite/Sensor Right" to="." method="_on_sensor_trigger"]
+
+[connection signal="body_entered" from="Sprite/Sensor Left" to="." method="_on_sensor_trigger"]
+
+[connection signal="body_entered" from="Sprite/CloudArea" to="." method="_on_CloudArea_body_entered"]
+
+[connection signal="body_exited" from="Sprite/CloudArea" to="." method="_on_CloudArea_body_exited"]
+
+[connection signal="timeout" from="Sprite/CloudArea/Timer" to="." method="_on_timer_timeout"]
+
+

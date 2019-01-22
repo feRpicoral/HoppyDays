@@ -1,0 +1,111 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://images/players/bunny2_stand.png" type="Texture" id=2]
+[ext_resource path="res://images/players/bunny2_ready.png" type="Texture" id=3]
+[ext_resource path="res://images/players/bunny2_hurt.png" type="Texture" id=4]
+[ext_resource path="res://images/players/bunny2_jump.png" type="Texture" id=5]
+[ext_resource path="res://images/players/bunny2_walk1.png" type="Texture" id=6]
+[ext_resource path="res://images/players/bunny2_walk2.png" type="Texture" id=7]
+[ext_resource path="res://scripts/PlayerAnimation.gd" type="Script" id=8]
+[ext_resource path="res://scenes/others/Camera.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/others/Background.tscn" type="PackedScene" id=10]
+[ext_resource path="res://sfx/others/jump.ogg" type="AudioStream" id=11]
+[ext_resource path="res://sfx/others/pain.ogg" type="AudioStream" id=12]
+[ext_resource path="res://sfx/others/life_up.ogg" type="AudioStream" id=13]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "idle",
+"speed": 3.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "hurt",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "run",
+"speed": 7.0
+} ]
+_sections_unfolded = [ "Resource" ]
+
+[node name="Player" type="KinematicBody2D" index="0"]
+
+position = Vector2( 0.307343, 0.307358 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 14
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "Material", "Transform", "Visibility", "Z Index", "collision" ]
+__meta__ = {
+"_edit_group_": true
+}
+lives = 3
+infinite_lives = false
+
+[node name="Sprite" type="AnimatedSprite" parent="." index="0"]
+
+position = Vector2( -60.4304, -107.659 )
+frames = SubResource( 1 )
+animation = "idle"
+centered = false
+script = ExtResource( 8 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Collision" type="CollisionPolygon2D" parent="." index="1"]
+
+visible = false
+position = Vector2( 0, 18 )
+scale = Vector2( 1.03448, 1 )
+build_mode = 0
+polygon = PoolVector2Array( -33.7222, 75.024, -8.44121, 75.1235, -7.38383, 73.2341, -7.57608, 55.2354, 6.45826, 55.2354, 6.65051, 73.1347, 7.80401, 74.6263, 8.57302, 75.3224, 32.7005, 75.4218, 34.7192, 71.9414, 34.2386, 69.6543, 25.0105, 62.8923, 27.2214, 50.6612, 36.6115, 45.4712, 44.2199, 38.7182, 53.4777, 25.6027, 57.3375, 13.0305, 57.8851, -11.1921, 53.1987, -29.0418, 53.0922, -29.3723, 47.5536, -43.035, 38.6067, -56.9181, 26.3581, -68.2669, 24.5474, -69.0382, 29.1273, -81.1584, 30.4054, -91.5156, 30.4054, -105.729, 26.0385, -114.544, 17.8372, -123.248, 12.4052, -125.121, 8.89036, -123.689, 5.48202, -118.07, 3.13879, -104.407, 2.81927, -91.9563, 3.13879, -80.4973, 3.13879, -76.8612, -3.46485, -77.0816, -3.57136, -95.7025, -4.63646, -108.374, -6.34063, -118.18, -9.32292, -123.469, -14.5419, -125.232, -20.613, -121.596, -29.2404, -109.916, -31.4771, -101.102, -30.9445, -88.5406, -29.7729, -81.5991, -29.1338, -78.0733, -29.6664, -76.5307, -33.2877, -80.0565, -38.2937, -79.3954, -40.637, -76.4205, -40.2109, -71.2419, -36.4831, -68.8179, -34.1398, -68.4873, -37.0156, -63.9698, -37.3351, -60.2236, -38.5068, -57.469, -47.7732, -44.5776, -47.9862, -44.3572, -55.8679, -24.1937, -58.2112, -7.8866, -58.7437, 14.8111, -58.7437, 14.8111, -56.1875, 22.3036, -49.6903, 34.2034, -41.5955, 41.9162, -28.9208, 49.8493, -27.3232, 52.9345, -26.045, 62.9612, -25.7255, 62.7408, -31.1575, 67.2583, -35.2049, 71.1147, -34.9919, 72.8776 )
+
+[node name="Camera2D" parent="." index="2" instance=ExtResource( 9 )]
+
+editor/display_folded = true
+zoom = Vector2( 1.5, 1.5 )
+limit_left = -10000
+smoothing_enabled = true
+_sections_unfolded = [ "Limit", "Smoothing" ]
+
+[node name="ParallaxBackground" parent="Camera2D" index="0" instance=ExtResource( 10 )]
+
+[node name="JumpSound" type="AudioStreamPlayer" parent="." index="3"]
+
+stream = ExtResource( 11 )
+volume_db = -10.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="HurtSound" type="AudioStreamPlayer" parent="." index="4"]
+
+stream = ExtResource( 12 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="LifeUpSound" type="AudioStreamPlayer" parent="." index="5"]
+
+stream = ExtResource( 13 )
+volume_db = -10.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+
