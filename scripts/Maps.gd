@@ -7,7 +7,8 @@ export(float) var left_limit = 0.0
 export(float) var top_limit = -1500.0
 export(bool) var infinite_top = true
 
-func _ready():	
+func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	Global.bottom_limit = bottom_limit
 	
 	#Apply the camera limit for the level

@@ -68,5 +68,7 @@ func save_coins():
 
 #Go to the levels screen after the delay
 func levels_screen():
+	Global.stop_gui = false	
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	get_tree().change_scene(Global.UI_levels)
 

@@ -80,6 +80,7 @@ func jump():
 
 #Ends the game		
 func end_game():
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	get_tree().change_scene(Global.game_over)
 
 #Needed to avoid bug
