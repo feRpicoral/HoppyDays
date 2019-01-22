@@ -1,0 +1,127 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scripts/Hazards/Wing Man.gd" type="Script" id=1]
+[ext_resource path="res://images/enemies/wingMan1.png" type="Texture" id=2]
+[ext_resource path="res://images/enemies/wingMan2.png" type="Texture" id=3]
+[ext_resource path="res://images/enemies/wingMan3.png" type="Texture" id=4]
+[ext_resource path="res://images/enemies/wingMan4.png" type="Texture" id=5]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 15.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 7.10289, 6.22579 )
+
+[node name="WingMan" type="KinematicBody2D"]
+
+input_pickable = false
+collision_layer = 4
+collision_mask = 3
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision" ]
+speed = 150
+random_direction = true
+initial_direction = null
+max_move_distance = 400
+wait_time = 2
+
+[node name="Area2D" type="Area2D" parent="." index="0"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 4
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="Sprite" type="AnimatedSprite" parent="Area2D" index="0"]
+
+frames = SubResource( 1 )
+animation = "default"
+frame = 4
+playing = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" index="1"]
+
+visible = false
+build_mode = 0
+polygon = PoolVector2Array( 14.5276, -34.8073, 31.6706, -25.1905, 41.7055, -8.04756, 45.0504, 16.2034, 44.6323, 45.89, -44.8456, 45.0538, -44.8456, 1.15109, -38.5738, -15.9919, -19.3402, -33.9711, 0.729614, -38.5704 )
+
+[node name="SensorRight" type="Area2D" parent="." index="1"]
+
+editor/display_folded = true
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 4
+collision_mask = 14
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SensorRight" index="0"]
+
+visible = false
+position = Vector2( 125.658, -7.48953 )
+shape = SubResource( 2 )
+
+[node name="SensorLeft" type="Area2D" parent="." index="2"]
+
+editor/display_folded = true
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 4
+collision_mask = 14
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SensorLeft" index="0"]
+
+visible = false
+position = Vector2( -125.658, -7.48953 )
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="PatrolTimer" type="Timer" parent="." index="3"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
+
+[node name="JustStoppedTimer" type="Timer" parent="." index="4"]
+
+process_mode = 1
+wait_time = 0.1
+one_shot = true
+autostart = false
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
+
+[connection signal="body_entered" from="SensorRight" to="." method="_on_sensor_trigger"]
+
+[connection signal="body_entered" from="SensorLeft" to="." method="_on_sensor_trigger"]
+
+[connection signal="timeout" from="PatrolTimer" to="." method="move_again"]
+
+[connection signal="timeout" from="JustStoppedTimer" to="." method="reset_just_stopped"]
+
+

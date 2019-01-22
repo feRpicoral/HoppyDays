@@ -1,0 +1,360 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://scripts/MainMenu.gd" type="Script" id=1]
+[ext_resource path="res://images/background/bg-1080.png" type="Texture" id=2]
+[ext_resource path="res://fonts/Sugarpunch.otf" type="DynamicFontData" id=3]
+[ext_resource path="res://images/candy/cake-btn.png" type="Texture" id=4]
+[ext_resource path="res://fonts/Montserrat-Black.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://scenes/others/ButtonClickSound.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/tiles/PlatformTiles.tres" type="TileSet" id=7]
+[ext_resource path="res://scenes/player/StaticPlayer.tscn" type="PackedScene" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+
+size = 200
+use_mipmaps = false
+use_filter = false
+font_data = ExtResource( 3 )
+_sections_unfolded = [ "Font", "Font/fallback", "Settings" ]
+
+[sub_resource type="DynamicFont" id=2]
+
+size = 40
+use_mipmaps = true
+use_filter = false
+font_data = ExtResource( 5 )
+_sections_unfolded = [ "Font", "Settings" ]
+
+[node name="MainMenu" type="Control" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+script = ExtResource( 1 )
+_sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Material", "Theme", "Visibility" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Background" type="TextureRect" parent="." index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 0
+_sections_unfolded = [ "Anchor" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Name" type="Label" parent="." index="1"]
+
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -537.0
+margin_top = -400.0
+margin_right = 536.0
+margin_bottom = -200.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 1 )
+text = "HOPPY DAYS"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Anchor", "Margin", "custom_colors", "custom_fonts" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Continue" type="TextureButton" parent="." index="2"]
+
+editor/display_folded = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -158.0
+margin_top = -89.0
+margin_right = 158.0
+margin_bottom = 3.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 4 )
+expand = true
+stretch_mode = 4
+_sections_unfolded = [ "Margin", "Textures" ]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="Continue" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 2.0
+margin_top = 29.0
+margin_right = 315.0
+margin_bottom = 91.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 2 )
+text = "CONTINUE"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Levels" type="TextureButton" parent="." index="3"]
+
+editor/display_folded = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -158.0
+margin_top = 40.0
+margin_right = 158.0
+margin_bottom = 132.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 4 )
+expand = true
+stretch_mode = 4
+_sections_unfolded = [ "Margin", "Textures" ]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="Levels" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 2.0
+margin_top = 29.0
+margin_right = 315.0
+margin_bottom = 91.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 2 )
+text = "LEVELS"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Options" type="TextureButton" parent="." index="4"]
+
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -158.0
+margin_top = 169.0
+margin_right = 158.0
+margin_bottom = 261.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 4 )
+expand = true
+stretch_mode = 4
+_sections_unfolded = [ "Margin", "Textures" ]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="Options" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 2.0
+margin_top = 29.0
+margin_right = 315.0
+margin_bottom = 91.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 2 )
+text = "OPTIONS"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Quit" type="TextureButton" parent="." index="5"]
+
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -158.0
+margin_top = 298.0
+margin_right = 158.0
+margin_bottom = 390.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 4 )
+expand = true
+stretch_mode = 4
+_sections_unfolded = [ "Margin", "Textures" ]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="Quit" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 2.0
+margin_top = 29.0
+margin_right = 315.0
+margin_bottom = 91.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 2 )
+text = "QUIT"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="ButtonClickSound" parent="." index="6" instance=ExtResource( 6 )]
+
+[node name="Static Player" type="Node2D" parent="." index="7"]
+
+position = Vector2( 2.39166, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Ground" type="TileMap" parent="Static Player" index="0"]
+
+mode = 2
+tile_set = ExtResource( 7 )
+cell_size = Vector2( 64, 64 )
+cell_quadrant_size = 16
+cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+cell_half_offset = 2
+cell_tile_origin = 0
+cell_y_sort = false
+cell_clip_uv = false
+collision_use_kinematic = false
+collision_friction = 1.0
+collision_bounce = 0.0
+collision_layer = 1
+collision_mask = 1
+occluder_light_mask = 1
+format = 1
+tile_data = PoolIntArray( 54591612, 0, 0 )
+
+[node name="Static Player" parent="Static Player" index="1" instance=ExtResource( 8 )]
+
+position = Vector2( 311.376, 740.432 )
+
+[node name="Timer" type="Timer" parent="." index="8"]
+
+process_mode = 1
+wait_time = 0.1
+one_shot = true
+autostart = false
+
+[connection signal="pressed" from="Continue" to="." method="_on_Continue_pressed"]
+
+[connection signal="pressed" from="Levels" to="." method="_on_Levels_pressed"]
+
+[connection signal="pressed" from="Options" to="." method="_on_Options_pressed"]
+
+[connection signal="pressed" from="Quit" to="." method="_on_Quit_pressed"]
+
+

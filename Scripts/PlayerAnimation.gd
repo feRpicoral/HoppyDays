@@ -34,19 +34,19 @@ var run1
 #Load the skin	
 func load_skin(model):	
 	if model == "brown":		
-		Idle0 = preload("res://GFX/Players/bunny1_stand.png")
-		Idle1 = preload("res://GFX/Players/bunny1_ready.png")
-		hurt = preload("res://GFX/Players/bunny1_hurt.png")
-		jump = preload("res://GFX/Players/bunny1_jump.png")
-		run0 = preload("res://GFX/Players/bunny1_walk1.png")
-		run1 = preload("res://GFX/Players/bunny1_walk2.png")
+		Idle0 = preload("res://images/players/bunny1_stand.png")
+		Idle1 = preload("res://images/players/bunny1_ready.png")
+		hurt = preload("res://images/players/bunny1_hurt.png")
+		jump = preload("res://images/players/bunny1_jump.png")
+		run0 = preload("res://images/players/bunny1_walk1.png")
+		run1 = preload("res://images/players/bunny1_walk2.png")
 	else:
-		Idle0 = preload("res://GFX/Players/bunny2_stand.png")
-		Idle1 = preload("res://GFX/Players/bunny2_ready.png")
-		hurt = preload("res://GFX/Players/bunny2_hurt.png")
-		jump = preload("res://GFX/Players/bunny2_jump.png")
-		run0 = preload("res://GFX/Players/bunny2_walk1.png")
-		run1 = preload("res://GFX/Players/bunny2_walk2.png")
+		Idle0 = preload("res://images/players/bunny2_stand.png")
+		Idle1 = preload("res://images/players/bunny2_ready.png")
+		hurt = preload("res://images/players/bunny2_hurt.png")
+		jump = preload("res://images/players/bunny2_jump.png")
+		run0 = preload("res://images/players/bunny2_walk1.png")
+		run1 = preload("res://images/players/bunny2_walk2.png")
 
 	Global.update_data("player", "model", model, "PlayerAnimation.gd")	
 	change_skin()

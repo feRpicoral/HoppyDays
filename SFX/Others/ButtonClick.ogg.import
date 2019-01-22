@@ -2,12 +2,12 @@
 
 importer="ogg_vorbis"
 type="AudioStreamOGGVorbis"
-path="res://.import/ButtonClick.ogg-ca5351456da4b7d88e3337bbe4df9e3e.oggstr"
+path="res://.import/ButtonClick.ogg-37736d8ebaec37cc6603bd1fe2e884dd.oggstr"
 
 [deps]
 
-source_file="res://SFX/Others/ButtonClick.ogg"
-dest_files=[ "res://.import/ButtonClick.ogg-ca5351456da4b7d88e3337bbe4df9e3e.oggstr" ]
+source_file="res://sfx/Others/ButtonClick.ogg"
+dest_files=[ "res://.import/ButtonClick.ogg-37736d8ebaec37cc6603bd1fe2e884dd.oggstr" ]
 
 [params]
 

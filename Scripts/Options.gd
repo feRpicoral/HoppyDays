@@ -1,5 +1,7 @@
 extends Control
 
+#TODO: REDO this whole page and make it works
+
 #Set the timer
 var timer = Timer.new()
 
@@ -12,7 +14,7 @@ func _ready():
 
 #Back
 func back():
-	get_tree().change_scene("res://Scenes/UI/MainMenu.tscn")
+	get_tree().change_scene(Global.main_menu)
 func _on_Back_pressed():
 	timer.connect("timeout",self,"back")
 	play_btn_sound()

@@ -2,12 +2,12 @@
 
 importer="ogg_vorbis"
 type="AudioStreamOGGVorbis"
-path="res://.import/jump1.ogg-29c7d8bc1c2e633d3486c7cf30ade15a.oggstr"
+path="res://.import/jump1.ogg-9ff62c8a9ce57b9808a81d99ac34cdf8.oggstr"
 
 [deps]
 
-source_file="res://SFX/Others/jump1.ogg"
-dest_files=[ "res://.import/jump1.ogg-29c7d8bc1c2e633d3486c7cf30ade15a.oggstr" ]
+source_file="res://sfx/Others/jump1.ogg"
+dest_files=[ "res://.import/jump1.ogg-9ff62c8a9ce57b9808a81d99ac34cdf8.oggstr" ]
 
 [params]
 

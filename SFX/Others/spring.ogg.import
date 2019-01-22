@@ -2,12 +2,12 @@
 
 importer="ogg_vorbis"
 type="AudioStreamOGGVorbis"
-path="res://.import/spring.ogg-ca91f5b2924d09d6663d7826e675691c.oggstr"
+path="res://.import/spring.ogg-c8b918be8bb3e15ff237b82c4308b0de.oggstr"
 
 [deps]
 
-source_file="res://SFX/Others/spring.ogg"
-dest_files=[ "res://.import/spring.ogg-ca91f5b2924d09d6663d7826e675691c.oggstr" ]
+source_file="res://sfx/others/spring.ogg"
+dest_files=[ "res://.import/spring.ogg-c8b918be8bb3e15ff237b82c4308b0de.oggstr" ]
 
 [params]
 

@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scripts/Hazards/Lightning.gd" type="Script" id=1]
+[ext_resource path="res://images/particles/lighting_yellow.png" type="Texture" id=2]
+[ext_resource path="res://images/particles/lighting_blue.png" type="Texture" id=3]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="Lightning" type="KinematicBody2D"]
+
+input_pickable = false
+collision_layer = 4
+collision_mask = 3
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "Pickable" ]
+
+[node name="Area2D" type="Area2D" parent="." index="0"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" index="0"]
+
+visible = false
+build_mode = 0
+polygon = PoolVector2Array( -5.52633, -51.7238, 3.60828, -56.8724, 9.42121, -57.0385, 28.0226, -24.4861, 28.0226, -22.1609, 7.09604, 19.3601, 23.2062, 48.0925, 22.7079, 52.0786, 13.7394, 57.5593, -27.2833, 22.8478, -27.4494, 17.3671, 2.77786, -24.32 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="." index="1"]
+
+frames = SubResource( 1 )
+animation = "default"
+frame = 1
+playing = true
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="." index="2"]
+
+rect = Rect2( -10, -10, 20, 20 )
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_hit"]
+
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_screen_exited"]
+
+

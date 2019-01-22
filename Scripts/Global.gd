@@ -1,12 +1,12 @@
 extends Node2D
 
 #Paths
-var main_menu = "res://Scenes/UI/MainMenu.tscn"
-var levels_folder = "res://Scenes/Levels/"
-var UI_levels = "res://Scenes/UI/Levels.tscn"
-var UI_options = "res://Scenes/UI/Options.tscn"
-var data_json = "res://Data/player-data.JSON"
-var lightning = "res://Scenes/Enemies/Lighting.tscn"
+var main_menu = "res://scenes/gui/MainMenu.tscn"
+var levels_folder = "res://levels/"
+var UI_levels = "res://scenes/gui/Levels.tscn"
+var UI_options = "res://scenes/gui/Options.tscn"
+var data_json = "res://data/player-data.JSON"
+var lightning = "res://scenes/enemies/Lightning.tscn"
 
 #Nodes
 var player
