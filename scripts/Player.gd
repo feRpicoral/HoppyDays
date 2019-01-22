@@ -80,7 +80,7 @@ func jump():
 
 #Ends the game		
 func end_game():
-	get_tree().change_scene("res://Scenes/UI/GameOver.tscn")
+	get_tree().change_scene(Global.game_over)
 
 #Needed to avoid bug
 func allow_reset_motion_y():

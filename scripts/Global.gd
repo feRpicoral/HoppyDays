@@ -5,6 +5,7 @@ var main_menu = "res://scenes/gui/MainMenu.tscn"
 var levels_folder = "res://levels/"
 var UI_levels = "res://scenes/gui/Levels.tscn"
 var UI_options = "res://scenes/gui/Options.tscn"
+var game_over = "res://scenes/gui/GameOver.tscn"
 var data_json = "res://data/player-data.JSON"
 var lightning = "res://scenes/enemies/Lightning.tscn"
 
