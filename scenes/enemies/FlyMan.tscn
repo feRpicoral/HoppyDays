@@ -27,95 +27,49 @@ animations = [ {
 
 [sub_resource type="RectangleShape2D" id=2]
 
-custom_solver_bias = 0.0
 extents = Vector2( 38.6718, 0.56554 )
 
 [sub_resource type="RectangleShape2D" id=3]
 
-custom_solver_bias = 0.0
 extents = Vector2( 10, 500 )
 
 [node name="FlyMan" type="KinematicBody2D"]
-
-input_pickable = false
 collision_layer = 4
 collision_mask = 2
-collision/safe_margin = 0.08
 script = ExtResource( 1 )
-_sections_unfolded = [ "Collision", "collision" ]
-fly_speed = 1000
-gravity_proportional = false
-gravity = 500
-attack_range = 1000
-only_attack_on_viewport = true
-max_fly_height = 600
 
-[node name="Area2D" type="Area2D" parent="." index="0"]
-
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
+[node name="Area2D" type="Area2D" parent="."]
 collision_layer = 4
-audio_bus_override = false
-audio_bus_name = "Master"
-_sections_unfolded = [ "Collision" ]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" index="0"]
-
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 visible = false
-build_mode = 0
 polygon = PoolVector2Array( 52.8819, 5.03674, 39.2972, -18.7365, 17.7881, -34.5853, 61.561, -50.8115, 60.8063, -63.2641, 53.2593, -68.5471, -61.456, -67.7924, -62.2107, -55.3397, -56.173, -47.4153, -19.5698, -34.5853, -40.7016, -17.9818, -48.626, 6.1688, -49.0033, 26.5459, -47.1166, 46.9229, -48.626, 69.9414, 48.731, 70.3188 )
 
-[node name="Sprite" type="AnimatedSprite" parent="Area2D" index="1"]
-
+[node name="Sprite" type="AnimatedSprite" parent="Area2D"]
 frames = SubResource( 1 )
 animation = "idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
-
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2( -0.631865, 65.4334 )
 shape = SubResource( 2 )
 
-[node name="Trigger" type="Area2D" parent="." index="2"]
-
+[node name="Trigger" type="Area2D" parent="."]
 editor/display_folded = true
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-audio_bus_override = false
-audio_bus_name = "Master"
 
-[node name="Collision" type="CollisionShape2D" parent="Trigger" index="0"]
-
+[node name="Collision" type="CollisionShape2D" parent="Trigger"]
 visible = false
 position = Vector2( 0, -500 )
 shape = SubResource( 3 )
-_sections_unfolded = [ "Transform", "Z Index" ]
 
-[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="." index="3"]
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 
-rect = Rect2( -10, -10, 20, 20 )
-
-[node name="StoppedFlyingTimer" type="Timer" parent="." index="4"]
-
-process_mode = 1
+[node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
-autostart = false
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
-
 [connection signal="body_entered" from="Trigger" to="." method="_on_trigger"]
-
 [connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_screen_entered"]
-
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_screen_exited"]
-
-[connection signal="timeout" from="StoppedFlyingTimer" to="." method="reset_stopped_flying"]
-
-
+[connection signal="timeout" from="Timer" to="." method="reset_smooth_stop"]

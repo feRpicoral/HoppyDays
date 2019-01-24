@@ -17,6 +17,7 @@ var stopped_flying = false
 var hit_before_max = false
 var init_y
 var _delta
+var smooth_stop
 
 func _ready():
 	#Set the gravity
@@ -31,59 +32,62 @@ func _ready():
 	$Trigger/Collision.position.y = -attack_range
 
 func _physics_process(delta):
-	move_and_slide(motion, UP)
-
-func _process(delta):
-	#Allows delta to be called from other functions
-	_delta = delta
+	_delta = delta	
 	
 	fall(delta)
 	
-	if can_attack:
-		attack(delta)
-
+	#Avoid bug
+	if self.global_position.y < init_y:
+		can_attack = false
+	
 	if is_on_floor():
 		$Area2D/Sprite.play("idle")
-		can_attack = false
+		can_attack = true
 		stopped_flying = false
 		hit_before_max = false
+	
+	if smooth_stop:
+		motion.y = lerp(motion.y, 0, 0.1)
+		
+	
+	move_and_slide(motion, UP)	
 
 #Allows the attack
 func _on_trigger(body):
-	can_attack = true
+	if can_attack and not hit_before_max:
+		can_attack = false			
+		attack(_delta)
 	
-#Start flying to hit the player
 func attack(delta):
+	$Area2D/Sprite.play("fly")
+	motion.y = -fly_speed 
+
+#Called by the timer
+func reset_smooth_stop():
+	smooth_stop = false
+
+func stop_flying(delta):
+	smooth_stop = true
+	stopped_flying = true
+	$Timer.start() #Smoothly stops before falling
+	$Area2D/Sprite.play("fall")	
+
+func fall(delta):
 	if self.global_position.y <= init_y - max_fly_height:	
 		if not stopped_flying:
 			stop_flying(delta)
-	else:
-		if not hit_before_max:
-			$Area2D/Sprite.play("fly")
-			motion.y += -fly_speed * delta
-
-#Stop flying
-func stop_flying(delta):
-	motion.y = 0	
-	$Area2D/Sprite.play("fall")	
-	can_attack = false
-	stopped_flying = true	
-	$StoppedFlyingTimer.start()	
-
-func reset_stopped_flying():
-	stopped_flying = false
-
-func fall(delta):
+	
 	if not is_on_floor():
 		motion.y += gravity * delta
 	else:
-		motion.y = 0
+		if can_attack:
+			motion.y = 0
 	
 func _on_body_entered(body):
-	body.take_damage()	
+	body.take_damage()
 	if not is_on_floor():
 		hit_before_max = true
-	stop_flying(_delta)
+		stop_flying(_delta)
 
 func _on_screen_exited():
 	if only_attack_on_viewport:

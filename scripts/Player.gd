@@ -47,11 +47,12 @@ func _process(delta):
 	$Sprite.update_animation(motion)
 
 func fall(delta):
-	if  is_on_floor() or is_on_ceiling():
+	if is_on_floor() or is_on_ceiling():
 		#Avoid bug with jump pads and damage
-		if can_reset_motion_y: motion.y = 0
-	else:
-		motion.y += GRAVITY * delta
+		if can_reset_motion_y: 
+			motion.y = 0.1
+
+	motion.y += GRAVITY * delta
 	
 	#If the player falls from the map, give damage and respawn or restart
 	if position.y >= Global.bottom_limit:
@@ -83,11 +84,11 @@ func end_game():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	get_tree().change_scene(Global.game_over)
 
-#Needed to avoid bug
+#Needed to avoid bug - called automaticaly
 func allow_reset_motion_y():
 	can_reset_motion_y = true
 
-func block_reset_motion_y():
+func block_reset_motion_y(delay=0.1):
 	can_reset_motion_y = false
 	
 	#Timer to avoid bug
@@ -95,7 +96,7 @@ func block_reset_motion_y():
 	timer.connect("timeout", self, "allow_reset_motion_y")
 	add_child(timer)
 	timer.set_one_shot(true)
-	timer.set_wait_time(0.1)
+	timer.set_wait_time(delay)
 	timer.start()
 	
 func take_damage(death_reason=null):
